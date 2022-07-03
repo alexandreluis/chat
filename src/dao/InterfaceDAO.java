@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public interface InterfaceDAO<T> 
 {
     public boolean add(T pVO) throws SQLException;
-    public T getById(String idCliente) throws SQLException;
+    public T getById(String id) throws SQLException;
     public T getByDoc(String doc) throws SQLException;
     public ArrayList<T> getAll() throws SQLException;
     public boolean atualizar(T pVO) throws SQLException;

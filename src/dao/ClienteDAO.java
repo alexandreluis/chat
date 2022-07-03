@@ -46,7 +46,7 @@ public class ClienteDAO implements InterfaceDAO<Cliente>
     }
 
     @Override
-    public Cliente getById(String idCliente) throws SQLException
+    public Cliente getById(String id) throws SQLException
     {
         Connection conn = Conexao.getConexao();
         Statement statement = conn.createStatement();
@@ -56,12 +56,13 @@ public class ClienteDAO implements InterfaceDAO<Cliente>
         try
         {
             String sql;
-            sql = "SELECT * FROM cliente WHERE idCliente = " + idCliente;
+            sql = "SELECT * FROM cliente WHERE idCliente = " + id;
 
             ResultSet rs = statement.executeQuery(sql);
 
             while (rs.next())
             {
+                c.setIdCliente(rs.getInt("idCliente"));
                 c.setNome(rs.getString("nomeCliente"));
                 c.setEmail(rs.getString("emailCliente"));
                 c.setTipoDeCliente(rs.getBoolean("tipoDeCliente"));
@@ -96,6 +97,7 @@ public class ClienteDAO implements InterfaceDAO<Cliente>
 
             while (rs.next())
             {
+                c.setIdCliente(rs.getInt("idCliente"));
                 c.setNome(rs.getString("nomeCliente"));
                 c.setEmail(rs.getString("emailCliente"));
                 c.setTipoDeCliente(rs.getBoolean("tipoDeCliente"));
@@ -132,6 +134,7 @@ public class ClienteDAO implements InterfaceDAO<Cliente>
             {
                 Cliente c = new Cliente();
 
+                c.setIdCliente(rs.getInt("idCliente"));
                 c.setNome(rs.getString("nomeCliente"));
                 c.setEmail(rs.getString("emailCliente"));
                 c.setTipoDeCliente(rs.getBoolean("tipoDeCliente"));
@@ -167,7 +170,7 @@ public class ClienteDAO implements InterfaceDAO<Cliente>
                     + "emailCliente = '" + pVO.getEmail() + "', "
                     + "tipoDeCliente = " + pVO.isTipoDeCliente() + ", "
                     + "situacaoDoCliente = " + pVO.isSituacaoFinanceira() + " "
-                    + "WHERE idCliente = '" + pVO.getIdCliente();
+                    + "WHERE idCliente = " + pVO.getIdCliente();
 
             if(statement.executeUpdate(sql) > 1)
             {
@@ -196,7 +199,7 @@ public class ClienteDAO implements InterfaceDAO<Cliente>
         try
         {
             String sql;
-            sql = "DELETE FROM cliente WHERE idCliente =" + pVO.getIdCliente();
+            sql = "DELETE FROM cliente WHERE idCliente = " + pVO.getIdCliente();
             
             executou = statement.execute(sql);
         } catch (SQLException e)
@@ -227,7 +230,7 @@ public class ClienteDAO implements InterfaceDAO<Cliente>
             executou = statement.execute(sql);
         } catch (SQLException e)
         {
-            throw new SQLException("Erro ao deletar cliente.\n" + e.getMessage());
+            throw new SQLException("Erro ao deletar todos clientes.\n" + e.getMessage());
         } finally
         {
             statement.close();

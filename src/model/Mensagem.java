@@ -3,7 +3,7 @@ package model;
 import java.util.Date;
 
 /**
- * https://www.devmedia.com.br/guia/jsf-javaserver-faces/38322
+ * 
  * @author 180900411
  */
 public class Mensagem 
